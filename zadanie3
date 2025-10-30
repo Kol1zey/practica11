@@ -1,0 +1,63 @@
+using Microsoft.Win32.SafeHandles;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Eventing.Reader;
+using System.IO.Ports;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Reflection.Emit;
+using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Lifetime;
+using System.Security.Authentication;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace domashechkaMDK
+{
+    internal class Program
+    {
+        class Book
+        {
+            private string title;
+            public string Title
+            {
+                get { return title; }
+                set
+                {
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        Console.WriteLine("Название не может быть пустым!");
+                    }
+                    else
+                    {
+                        title = value;
+                    }
+                }
+            }
+            public int Pages { get; set; } = 1;
+            public bool IsLong
+            {
+                get { return Pages > 300; }
+            }
+            public Book(string title)
+            {
+                Title = title;
+            }
+            public void Info()
+            {
+                Console.WriteLine($"Книга: {Title}, страниц: {Pages}, длинная: {(IsLong ? "да" : "нет")}");
+            }
+        }
+        static void Main(string[] args)
+        {
+            Book mybook = new Book("Война и мир");
+            mybook.Pages = 1200;
+            mybook.Info();
+            Console.ReadKey();
+        }
+    }
+}

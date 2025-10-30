@@ -1,0 +1,65 @@
+using System.Xml.Linq;
+namespace domashechkaMDK
+{
+    internal class Program
+    {
+        class Product
+        {
+            private int price;
+            private int discount;
+            public int Price
+            {
+                get { return price; }
+                set
+                {
+                    if (value >= 0)
+                    {
+                        price = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Цена не может быть отрицательной!");
+                    }
+                }
+            }
+            public int Discount
+            {
+                get { return discount; }
+                set
+                {
+                    if (value >= 0 && value <= 100)
+                    {
+                        discount = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Скидка должна быть от 0 до 100!");
+                    }
+                }
+            }
+            public double FinalPrice
+            {
+                get { return price * (1 - (double)Discount / 100); }
+            }
+            public string Name { get; set; } = "Без названия";
+            public Product(int price, int discount)
+            {
+                Price = price;
+                Discount = discount;
+            }
+            public void Show()
+            {
+                Console.WriteLine($"{Name}: {FinalPrice} (скидка {Discount}%)");
+            }
+        }
+        static void Main(string[] args)
+        {
+            Product myproduct = new Product(800, 20);
+            myproduct.Name = "Мышка компьютерная";
+            myproduct.Show();
+            myproduct.Discount = 10;
+            myproduct.Show();
+            Console.ReadKey();
+        }
+    }
+}
